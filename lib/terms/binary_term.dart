@@ -1,30 +1,30 @@
-import '../expression.dart';
+import '../base_term.dart';
 
-class BinaryExpression extends Expression {
-  final Expression left;
-  final Expression right;
+class BinaryTerm extends BaseTerm {
+  final BaseTerm left;
+  final BaseTerm right;
   final String operator;
 
-  BinaryExpression(this.left, this.right, this.operator);
+  BinaryTerm(this.left, this.right, this.operator);
 
-  factory BinaryExpression.parse(Map<String, dynamic> value) {
-    if (value['kind'] != 'Binary') throw Exception("Unknown expression: ${value['kind']}");
+  factory BinaryTerm.parse(Map<String, dynamic> ast) {
+    if (ast['kind'] != 'Binary') throw Exception("Unknown expression: ${ast['kind']}");
 
-    final lhsExpression = value['lhs']['kind'];
-    final Expression Function(Map<String, dynamic>)? lhsFunction = Expression.expressions[lhsExpression];
+    final lhsExpression = ast['lhs']['kind'];
+    final BaseTerm Function(Map<String, dynamic>)? lhsFunction = BaseTerm.terms[lhsExpression];
     if (lhsFunction == null) throw Exception("Unknown expression: $lhsExpression");
 
-    final rhsExpression = value['rhs']['kind'];
-    final Expression Function(Map<String, dynamic>)? rhsFunction = Expression.expressions[rhsExpression];
+    final rhsExpression = ast['rhs']['kind'];
+    final BaseTerm Function(Map<String, dynamic>)? rhsFunction = BaseTerm.terms[rhsExpression];
     if (rhsFunction == null) throw Exception("Unknown expression: $rhsExpression");
 
-    final String? operator = value['op'];
+    final String? operator = ast['op'];
     if (operator == null) throw Exception("Unknown operator: $operator");
 
-    final Expression lhs = lhsFunction(value['lhs']);
-    final Expression rhs = rhsFunction(value['rhs']);
+    final BaseTerm lhs = lhsFunction(ast['lhs']);
+    final BaseTerm rhs = rhsFunction(ast['rhs']);
 
-    return BinaryExpression(rhs, lhs, operator);
+    return BinaryTerm(rhs, lhs, operator);
   }
 
   @override
@@ -33,7 +33,7 @@ class BinaryExpression extends Expression {
   }
 
   @override
-  call() {
+  dynamic call() {
     return switch (operator) {
       'Add' => left() + right(),
       'Sub' => left() - right(),
