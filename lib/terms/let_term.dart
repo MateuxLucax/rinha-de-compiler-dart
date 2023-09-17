@@ -1,6 +1,5 @@
-import 'package:rinha_de_compiler_dart/cache.dart';
-
 import '../base_term.dart';
+import '../cache.dart';
 
 class LetTerm extends BaseTerm {
   final String name;
@@ -10,33 +9,33 @@ class LetTerm extends BaseTerm {
   LetTerm(this.name, this.value, this.next);
 
   factory LetTerm.parse(Map<String, dynamic> ast) {
-    if (ast['kind'] != 'Let') throw Exception("Unknown expression: ${ast['kind']}");
+    if (ast['kind'] != 'Let') throw Exception("Unknown term: ${ast['kind']}");
 
     final String? name = ast['name']['text'];
-    if (name == null) throw Exception("Invalid let expression: $ast");
+    if (name == null) throw Exception("Invalid let term: $ast");
 
-    final LetTerm? cached = Cache.variables[name];
+    final LetTerm? cached = Cache.get(name);
     if (cached != null) {
       return cached;
     }
 
-    final valueExpressionKey = ast['value']['kind'];
-    final BaseTerm Function(Map<String, dynamic>)? valueExpression = BaseTerm.terms[valueExpressionKey];
-    if (valueExpression == null) throw Exception("Unknown expression: $valueExpression");
+    final valueTermKey = ast['value']['kind'];
+    final BaseTerm Function(Map<String, dynamic>)? valueTerm = BaseTerm.terms[valueTermKey];
+    if (valueTerm == null) throw Exception("Unknown term: $valueTerm");
 
-    final nextExpressionKey = ast['next']['kind'];
-    final BaseTerm Function(Map<String, dynamic>)? nextExpression = BaseTerm.terms[nextExpressionKey];
-    if (nextExpression == null) throw Exception("Unknown expression: $nextExpression");
+    final nextTermKey = ast['next']['kind'];
+    final BaseTerm Function(Map<String, dynamic>)? nextTerm = BaseTerm.terms[nextTermKey];
+    if (nextTerm == null) throw Exception("Unknown term: $nextTerm");
 
-    final LetTerm letTerm = LetTerm(name, valueExpression(ast['value']), nextExpression(ast['next']));
-    Cache.variables[name] = letTerm;
+    final LetTerm letTerm = LetTerm(name, valueTerm(ast['value']), nextTerm(ast['next']));
+    Cache.set(name, letTerm);
 
     return letTerm;
   }
 
   @override
-  dynamic call() async {
-    Cache.push(next);
-    return value();
+  dynamic call() {
+    Cache.set(name, value);
+    return next();
   }
 }

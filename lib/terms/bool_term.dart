@@ -6,10 +6,10 @@ class BoolTerm extends BaseTerm {
   BoolTerm(this.value);
 
   factory BoolTerm.parse(Map<String, dynamic> ast) {
-    if (ast['kind'] != 'Bool') throw Exception("Unknown expression: ${ast['kind']}");
+    if (ast['kind'] != 'Bool') throw Exception("Unknown term: ${ast['kind']}");
 
     final bool? value = ast['value'];
-    if (value == null) throw Exception("Invalid bool expression: $ast");
+    if (value == null) throw Exception("Invalid bool term: $ast");
 
     return BoolTerm(value);
   }

@@ -10,10 +10,10 @@ class FunctionTerm extends BaseTerm {
 
   factory FunctionTerm.parse(Map<String, dynamic> ast) {
     final String? kind = ast['kind'];
-    if (kind != 'Function') throw Exception("Unknown expression: $kind");
+    if (kind != 'Function') throw Exception("Unknown term: $kind");
 
-    final BaseTerm Function(Map<String, dynamic>)? expression = BaseTerm.terms[ast['value']['kind']];
-    if (expression == null) throw Exception("Unknown value expression: ${ast['value']['kind']}");
+    final BaseTerm Function(Map<String, dynamic>)? term = BaseTerm.terms[ast['value']['kind']];
+    if (term == null) throw Exception("Unknown value term: ${ast['value']['kind']}");
 
     final List<String> parameters = [];
     for (final parameter in ast['parameters']) {
@@ -25,10 +25,12 @@ class FunctionTerm extends BaseTerm {
 
     return FunctionTerm((arguments) {
       for (var i = 0; i < parameters.length; i++) {
-        Cache.variables[parameters[i]] = arguments[i];
+        final key = parameters[i];
+        final BaseTerm value = arguments[i];
+        Cache.set(key, value());
       }
 
-      return expression(ast);
+      return term(ast['value'])();
     });
   }
 

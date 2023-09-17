@@ -1,17 +1,11 @@
 import 'base_term.dart';
-import 'cache.dart';
 
 class TreeInterpreter {
-  void call(final Map<String, dynamic> astJson) async {
-    final BaseTerm Function(Map<String, dynamic>)? expression = BaseTerm.terms[astJson['kind']];
-    if (expression == null) throw Exception("Unknown expression: ${astJson['kind']}");
+  void call(final Map<String, dynamic> astJson) {
+    final BaseTerm Function(Map<String, dynamic>)? term = BaseTerm.terms[astJson['kind']];
+    if (term == null) throw Exception("Unknown term: ${astJson['kind']}");
 
-    final BaseTerm astExpression = expression(astJson);
-    astExpression();
-
-    while (Cache.isNotEmpty) {
-      final BaseTerm term = Cache.pop();
-      await term();
-    }
+    final BaseTerm firstTerm = term(astJson);
+    firstTerm();
   }
 }

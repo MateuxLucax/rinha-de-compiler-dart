@@ -7,17 +7,17 @@ class PrintTerm extends BaseTerm {
 
   @override
   factory PrintTerm.parse(Map<String, dynamic> ast) {
-    if (ast['kind'] != 'Print') throw Exception("Unknown expression: ${ast['kind']}");
+    if (ast['kind'] != 'Print') throw Exception("Unknown term: ${ast['kind']}");
 
-    final valueExpression = ast['value']['kind'];
-    final BaseTerm Function(Map<String, dynamic>)? expression = BaseTerm.terms[valueExpression];
-    if (expression == null) throw Exception("Unknown expression: $expression");
+    final valueTerm = ast['value']['kind'];
+    final BaseTerm Function(Map<String, dynamic>)? term = BaseTerm.terms[valueTerm];
+    if (term == null) throw Exception("Unknown term: $term");
 
-    return PrintTerm(expression(ast['value']));
+    return PrintTerm(term(ast['value']));
   }
 
   @override
-  dynamic call() async {
-    print(await value());
+  dynamic call() {
+    print(value());
   }
 }

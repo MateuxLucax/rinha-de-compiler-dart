@@ -2,7 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 enum Resources {
-  sum('sum.rinha.json');
+  sum('sum.rinha.json'),
+  fib('fib.rinha.json'),
+  print('print.rinha.json'),
+  combination('combination.rinha.json');
 
   final String fileName;
 

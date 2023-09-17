@@ -1,4 +1,5 @@
 import '../base_term.dart';
+import 'function_term.dart';
 
 class CallTerm extends BaseTerm {
   final BaseTerm callee;
@@ -7,34 +8,30 @@ class CallTerm extends BaseTerm {
   CallTerm(this.callee, this.arguments);
 
   factory CallTerm.parse(Map<String, dynamic> ast) {
-    if (ast['kind'] != 'Call') throw Exception("Unknown expression: ${ast['kind']}");
+    if (ast['kind'] != 'Call') throw Exception("Unknown term: ${ast['kind']}");
 
     final String? calleeKey = ast['callee']['kind'];
-    final BaseTerm Function(Map<String, dynamic>)? calleeExpression = BaseTerm.terms[calleeKey];
-    if (calleeExpression == null) throw Exception("Unknown expression: $calleeExpression");
+    final BaseTerm Function(Map<String, dynamic>)? calleeTerm = BaseTerm.terms[calleeKey];
+    if (calleeTerm == null) throw Exception("Unknown term: $calleeTerm");
 
     final List<BaseTerm> arguments = [];
     for (final argument in ast['arguments']) {
       final String? argumentKey = argument['kind'];
-      final BaseTerm Function(Map<String, dynamic>)? argumentExpression = BaseTerm.terms[argumentKey];
-      if (argumentExpression == null) throw Exception("Unknown expression: $argumentExpression");
+      final BaseTerm Function(Map<String, dynamic>)? argumentTerm = BaseTerm.terms[argumentKey];
+      if (argumentTerm == null) throw Exception("Unknown term: $argumentTerm");
 
-      arguments.add(argumentExpression(argument));
+      arguments.add(argumentTerm(argument));
     }
 
-    return CallTerm(calleeExpression(ast['callee']), arguments);
+    return CallTerm(calleeTerm(ast['callee']), arguments);
   }
 
   @override
-  call() async {
-    final arguments = [];
+  call() {
+    final function = callee();
 
-    for (final argument in this.arguments) {
-      arguments.add(await argument());
-    }
+    if (function is! FunctionTerm) throw Exception("Invalid function: $function");
 
-    print(callee.runtimeType);
-
-    return callee()(arguments);
+    return function()(arguments);
   }
 }

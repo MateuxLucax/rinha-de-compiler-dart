@@ -2,6 +2,7 @@ import 'terms/binary_term.dart';
 import 'terms/bool_term.dart';
 import 'terms/call_term.dart';
 import 'terms/function_term.dart';
+import 'terms/if_term.dart';
 import 'terms/int_term.dart';
 import 'terms/let_term.dart';
 import 'terms/print_term.dart';
@@ -19,25 +20,8 @@ abstract class BaseTerm {
     'Call': CallTerm.parse,
     'Var': VarTerm.parse,
     'Function': FunctionTerm.parse,
+    'If': IfTerm.parse,
   };
 
   dynamic call();
-
-  operator +(BaseTerm other) => other + this;
-
-  operator -(BaseTerm other) => other - this;
-
-  operator *(BaseTerm other) => other * this;
-
-  operator /(BaseTerm other) => other / this;
-
-  operator %(BaseTerm other) => other % this;
-
-  operator <(BaseTerm other) => other < this;
-
-  operator <=(BaseTerm other) => other <= this;
-
-  operator >(BaseTerm other) => other > this;
-
-  operator >=(BaseTerm other) => other >= this;
 }

@@ -6,7 +6,7 @@ class StringTerm extends BaseTerm {
   StringTerm(this.value);
 
   factory StringTerm.parse(Map<String, dynamic> ast) {
-    if (ast['kind'] != 'Str') throw Exception("Unknown expression: ${ast['kind']}");
+    if (ast['kind'] != 'Str') throw Exception("Unknown term: ${ast['kind']}");
 
     return StringTerm(ast['value']);
   }

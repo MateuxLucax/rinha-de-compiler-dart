@@ -6,7 +6,7 @@ class IntTerm extends BaseTerm {
   IntTerm(this.value);
 
   factory IntTerm.parse(Map<String, dynamic> ast) {
-    if (ast['kind'] != 'Int') throw Exception("Unknown expression: ${ast['kind']}");
+    if (ast['kind'] != 'Int') throw Exception("Unknown term: ${ast['kind']}");
 
     return IntTerm(ast['value']);
   }

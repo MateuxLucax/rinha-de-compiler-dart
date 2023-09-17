@@ -8,15 +8,15 @@ class BinaryTerm extends BaseTerm {
   BinaryTerm(this.left, this.right, this.operator);
 
   factory BinaryTerm.parse(Map<String, dynamic> ast) {
-    if (ast['kind'] != 'Binary') throw Exception("Unknown expression: ${ast['kind']}");
+    if (ast['kind'] != 'Binary') throw Exception("Unknown term: ${ast['kind']}");
 
-    final lhsExpression = ast['lhs']['kind'];
-    final BaseTerm Function(Map<String, dynamic>)? lhsFunction = BaseTerm.terms[lhsExpression];
-    if (lhsFunction == null) throw Exception("Unknown expression: $lhsExpression");
+    final lhsTerm = ast['lhs']['kind'];
+    final BaseTerm Function(Map<String, dynamic>)? lhsFunction = BaseTerm.terms[lhsTerm];
+    if (lhsFunction == null) throw Exception("Unknown term: $lhsTerm");
 
-    final rhsExpression = ast['rhs']['kind'];
-    final BaseTerm Function(Map<String, dynamic>)? rhsFunction = BaseTerm.terms[rhsExpression];
-    if (rhsFunction == null) throw Exception("Unknown expression: $rhsExpression");
+    final rhsterm = ast['rhs']['kind'];
+    final BaseTerm Function(Map<String, dynamic>)? rhsFunction = BaseTerm.terms[rhsterm];
+    if (rhsFunction == null) throw Exception("Unknown term: $rhsterm");
 
     final String? operator = ast['op'];
     if (operator == null) throw Exception("Unknown operator: $operator");
@@ -29,25 +29,27 @@ class BinaryTerm extends BaseTerm {
 
   @override
   String toString() {
-    return 'BinaryExpression{left: $left, right: $right, operator: $operator}';
+    return 'Binaryterm{left: $left, right: $right, operator: $operator}';
   }
 
   @override
   dynamic call() {
+    final left = this.left();
+    final right = this.right();
     return switch (operator) {
-      'Add' => left() + right(),
-      'Sub' => left() - right(),
-      'Mul' => left() * right(),
-      'Div' => left() / right(),
-      'Rem' => left() % right(),
-      'Eq' => left() == right(),
-      'Neq' => left() != right(),
-      'Lt' => left() < right(),
-      'Lte' => left() <= right(),
-      'Gt' => left() > right(),
-      'Gte' => left() >= right(),
-      'And' => left() && right(),
-      'Or' => left() || right(),
+      'Add' => left + right,
+      'Sub' => left - right,
+      'Mul' => left * right,
+      'Div' => left / right,
+      'Rem' => left % right,
+      'Eq' => left == right,
+      'Neq' => left != right,
+      'Lt' => left < right,
+      'Lte' => left <= right,
+      'Gt' => left > right,
+      'Gte' => left >= right,
+      'And' => left && right,
+      'Or' => left || right,
       _ => throw Exception("Unknown operator: $operator"),
     };
   }

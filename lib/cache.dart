@@ -1,21 +1,11 @@
-import 'base_term.dart';
-
 class Cache {
-  static final Map<String, dynamic> variables = <String, dynamic>{};
+  static final Map<String, dynamic> _variables = <String, dynamic>{};
 
-  static final List<BaseTerm> _callStack = <BaseTerm>[];
+  static get all => _variables.entries;
 
-  static void push(BaseTerm term) {
-    _callStack.add(term);
+  static set(String key, dynamic value) {
+    _variables[key] = value;
   }
 
-  static BaseTerm pop() {
-    return _callStack.removeLast();
-  }
-
-  static BaseTerm peek() {
-    return _callStack.last;
-  }
-
-  static bool get isNotEmpty => _callStack.isNotEmpty;
+  static get(String key) => _variables[key];
 }

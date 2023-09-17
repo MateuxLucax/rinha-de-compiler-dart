@@ -7,19 +7,24 @@ class VarTerm extends BaseTerm {
   VarTerm(this.key);
 
   factory VarTerm.parse(Map<String, dynamic> ast) {
-    if (ast['kind'] != 'Var') throw Exception("Unknown expression: ${ast['kind']}");
+    if (ast['kind'] != 'Var') throw Exception("Unknown term: ${ast['kind']}");
 
     final String? key = ast['text'];
-    if (key == null) throw Exception("Invalid variable expression: $ast");
+    if (key == null) throw Exception("Invalid variable term: $ast");
 
-    Cache.variables[key] = null;
+    final dynamic value = Cache.get(key);
+
+    if (value == null) {
+      Cache.set(key, null);
+    }
 
     return VarTerm(key);
   }
 
   @override
   dynamic call() {
-    print(Cache.variables[key].runtimeType);
-    return Cache.variables[key];
+    final dynamic value = Cache.get(key);
+    if (value == null) throw Exception("Unknown variable: $key");
+    return value;
   }
 }
