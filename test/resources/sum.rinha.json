@@ -1,0 +1,122 @@
+{
+  "name": "sum.rinha",
+  "expression": {
+    "kind": "Let",
+    "name": {
+      "text": "sum",
+      "location": {
+        "start": 4,
+        "end": 7,
+        "filename": "sum.rinha"
+      }
+    },
+    "value": {
+      "kind": "Function",
+      "parameters": [
+        {
+          "text": "a",
+          "location": {
+            "start": 14,
+            "end": 15,
+            "filename": "sum.rinha"
+          }
+        },
+        {
+          "text": "b",
+          "location": {
+            "start": 17,
+            "end": 18,
+            "filename": "sum.rinha"
+          }
+        }
+      ],
+      "value": {
+        "kind": "Binary",
+        "lhs": {
+          "kind": "Var",
+          "text": "a",
+          "location": {
+            "start": 27,
+            "end": 28,
+            "filename": "sum.rinha"
+          }
+        },
+        "op": "Add",
+        "rhs": {
+          "kind": "Var",
+          "text": "b",
+          "location": {
+            "start": 31,
+            "end": 32,
+            "filename": "sum.rinha"
+          }
+        },
+        "location": {
+          "start": 27,
+          "end": 32,
+          "filename": "sum.rinha"
+        }
+      },
+      "location": {
+        "start": 10,
+        "end": 34,
+        "filename": "sum.rinha"
+      }
+    },
+    "next": {
+      "kind": "Print",
+      "value": {
+        "kind": "Call",
+        "callee": {
+          "kind": "Var",
+          "text": "sum",
+          "location": {
+            "start": 43,
+            "end": 46,
+            "filename": "sum.rinha"
+          }
+        },
+        "arguments": [
+          {
+            "kind": "Int",
+            "value": 1,
+            "location": {
+              "start": 47,
+              "end": 48,
+              "filename": "sum.rinha"
+            }
+          },
+          {
+            "kind": "Int",
+            "value": 2,
+            "location": {
+              "start": 50,
+              "end": 51,
+              "filename": "sum.rinha"
+            }
+          }
+        ],
+        "location": {
+          "start": 43,
+          "end": 52,
+          "filename": "sum.rinha"
+        }
+      },
+      "location": {
+        "start": 37,
+        "end": 53,
+        "filename": "sum.rinha"
+      }
+    },
+    "location": {
+      "start": 0,
+      "end": 53,
+      "filename": "sum.rinha"
+    }
+  },
+  "location": {
+    "start": 0,
+    "end": 53,
+    "filename": "sum.rinha"
+  }
+}
