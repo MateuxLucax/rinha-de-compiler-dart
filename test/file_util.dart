@@ -5,7 +5,9 @@ enum Resources {
   sum('sum.rinha.json'),
   fib('fib.rinha.json'),
   print('print.rinha.json'),
-  combination('combination.rinha.json');
+  combination('combination.rinha.json'),
+  compostos('compostos.rinha.json'),
+  tuple('tuple.rinha.json');
 
   final String fileName;
 

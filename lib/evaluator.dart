@@ -1,20 +1,34 @@
-import 'package:rinha_de_compiler_dart/terms.dart';
+import 'terms.dart';
 
 typedef Env = Map<String, dynamic>;
 
 class Evaluator {
   dynamic call(final Term term, final Env environment) {
     return switch (term) {
-      VarTerm() => environment[term.name],
-      StrTerm() => term.value,
       IntTerm() => term.value,
-      BinaryOpTerm() => evaluateBinaryOpTerm(term, environment),
-      IfTerm() => evaluateIfTerm(term, environment),
-      FunctionTerm() => evaluateFunctionTerm(term, environment),
+      StrTerm() => term.value,
       CallTerm() => evaluateCallTerm(term, environment),
+      BinaryOpTerm() => evaluateBinaryOpTerm(term, environment),
+      FunctionTerm() => evaluateFunctionTerm(term, environment),
       LetTerm() => evaluateLetTerm(term, environment),
+      IfTerm() => evaluateIfTerm(term, environment),
       PrintTerm() => evaluatePrintTerm(term, environment),
+      FirstTerm() => evaluateFirstTerm(term, environment),
+      SecondTerm() => evaluateSecondTerm(term, environment),
+      BoolTerm() => term.value,
+      TupleTerm() => evaluateTupleTerm(term, environment),
+      VarTerm() => environment[term.name],
     };
+  }
+
+  dynamic evaluateCallTerm(CallTerm term, Env environment) {
+    final callee = this(VarTerm(term.callee), environment);
+    if (callee is Function) {
+      final args = term.arguments.map((arg) => this(arg, environment)).toList();
+      return callee(args);
+    } else {
+      throw Exception('Evaluate Error - Trying to call a non-function');
+    }
   }
 
   dynamic evaluateBinaryOpTerm(BinaryOpTerm term, Env environment) => switch (term.op) {
@@ -34,15 +48,6 @@ class Evaluator {
         _ => throw Exception('Evaluate Error - Unknown binary operator: ${term.op}'),
       };
 
-  dynamic evaluateIfTerm(IfTerm term, Env environment) {
-    final condition = this(term.condition, environment);
-    if (condition is bool) {
-      return condition ? this(term.thenBranch, environment) : this(term.elseBranch, environment);
-    } else {
-      throw Exception('Evaluate Error - [If] condition must be a boolean');
-    }
-  }
-
   dynamic evaluateFunctionTerm(FunctionTerm term, Env environment) {
     return (List<dynamic> args) {
       final localEnv = Map<String, dynamic>.from(environment);
@@ -53,16 +58,6 @@ class Evaluator {
     };
   }
 
-  dynamic evaluateCallTerm(CallTerm term, Env environment) {
-    final callee = this(VarTerm(term.callee), environment);
-    if (callee is Function) {
-      final args = term.arguments.map((arg) => this(arg, environment)).toList();
-      return callee(args);
-    } else {
-      throw Exception('Evaluate Error - Trying to call a non-function');
-    }
-  }
-
   dynamic evaluateLetTerm(LetTerm term, Env environment) {
     final localEnv = Map<String, dynamic>.from(environment);
     final name = term.name;
@@ -71,9 +66,40 @@ class Evaluator {
     return this(term.next, localEnv);
   }
 
+  dynamic evaluateIfTerm(IfTerm term, Env environment) {
+    final condition = this(term.condition, environment);
+    if (condition is bool) {
+      return condition ? this(term.thenBranch, environment) : this(term.elseBranch, environment);
+    } else {
+      throw Exception('Evaluate Error - [If] condition must be a boolean');
+    }
+  }
+
   dynamic evaluatePrintTerm(PrintTerm term, Env environment) {
     final result = this(term.value, environment);
     print(result);
     return result;
+  }
+
+  dynamic evaluateFirstTerm(Term term, Env environment) {
+    final tuple = this(term, environment);
+    if (tuple is TupleTerm) {
+      return tuple.first;
+    } else {
+      throw Exception('Evaluate Error - Trying to get first of a non-tuple');
+    }
+  }
+
+  dynamic evaluateSecondTerm(Term term, Env environment) {
+    final tuple = this(term, environment);
+    if (tuple is TupleTerm) {
+      return tuple.second;
+    } else {
+      throw Exception('Evaluate Error - Trying to get second of a non-tuple');
+    }
+  }
+
+  dynamic evaluateTupleTerm(TupleTerm term, Env environment) {
+    return (this(term.first, environment), this(term.second, environment));
   }
 }

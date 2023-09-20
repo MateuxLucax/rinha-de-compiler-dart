@@ -1,0 +1,3 @@
+let tuple = (print(1), print(2));
+
+print(second((1, 2)))

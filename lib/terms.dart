@@ -1,54 +1,75 @@
 sealed class Term {}
 
-class VarTerm extends Term {
-  final String name;
-  VarTerm(this.name);
-}
-
-class StrTerm extends Term {
-  final String value;
-  StrTerm(this.value);
-}
-
-class IntTerm extends Term {
+final class IntTerm implements Term {
   final int value;
   IntTerm(this.value);
 }
 
-class BinaryOpTerm extends Term {
+final class StrTerm implements Term {
+  final String value;
+  StrTerm(this.value);
+}
+
+final class CallTerm implements Term {
+  final String callee;
+  final List<Term> arguments;
+  CallTerm(this.callee, this.arguments);
+}
+
+final class BinaryOpTerm implements Term {
   final String op;
   final Term left;
   final Term right;
   BinaryOpTerm(this.op, this.left, this.right);
 }
 
-class IfTerm extends Term {
+final class FunctionTerm implements Term {
+  final List<String> parameters;
+  final Term body;
+  FunctionTerm(this.parameters, this.body);
+}
+
+final class LetTerm implements Term {
+  final String name;
+  final Term value;
+  final Term next;
+  LetTerm(this.name, this.value, this.next);
+}
+
+final class IfTerm implements Term {
   final Term condition;
   final Term thenBranch;
   final Term elseBranch;
   IfTerm(this.condition, this.thenBranch, this.elseBranch);
 }
 
-class FunctionTerm extends Term {
-  final List<String> parameters;
-  final Term body;
-  FunctionTerm(this.parameters, this.body);
-}
-
-class CallTerm extends Term {
-  final String callee;
-  final List<Term> arguments;
-  CallTerm(this.callee, this.arguments);
-}
-
-class PrintTerm extends Term {
+final class PrintTerm implements Term {
   final Term value;
   PrintTerm(this.value);
 }
 
-class LetTerm extends Term {
+final class FirstTerm implements Term {
+  final Term tuple;
+  FirstTerm(this.tuple);
+}
+
+final class SecondTerm implements Term {
+  final Term tuple;
+  SecondTerm(this.tuple);
+}
+
+final class BoolTerm implements Term {
+  final bool value;
+  BoolTerm(this.value);
+}
+
+final class TupleTerm implements Term {
+  final Term first;
+  final Term second;
+  TupleTerm(this.first, this.second);
+}
+
+final class VarTerm implements Term {
   final String name;
-  final Term value;
-  final Term next;
-  LetTerm(this.name, this.value, this.next);
+  VarTerm(this.name);
 }
