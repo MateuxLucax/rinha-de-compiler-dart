@@ -1,12 +1,10 @@
-name: rinha_de_compiler_dart
+name: dartify_rinha
 description: A basic interpreter built for the Rinha de Compiler event.
 version: 1.0.0
 repository: https://github.com/MateuxLucax/rinha-de-compiler-dart
 
 environment:
   sdk: ^3.1.2
-
-dependencies:
 
 dev_dependencies:
   lints: ^2.0.0

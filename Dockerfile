@@ -9,21 +9,14 @@ RUN dart pub get
 # Copy app source code.
 COPY . .
 
-# Run static analysis.
-RUN dart analyze
+# Build an AOT-compiled snapshot of the app.
+RUN dart compile exe bin/dartify_rinha.dart -o bin/dartify_rinha
 
-# Run tests.
-RUN dart test
-
-# Ensure packages are still up-to-date if anything has changed
-RUN dart pub get --offline
-RUN dart compile exe bin/rinha_de_compiler_dart.dart -o bin/rinha_de_compiler_dart
-
-# Build minimal serving image from AOT-compiled `/rinha_de_compiler_dart` and required system
+# Build minimal serving image from AOT-compiled `/dartify_rinha` and required system
 # libraries and configuration files stored in `/runtime/` from the build stage.
-FROM scratch
+FROM scratch AS runtime
 COPY --from=build /runtime/ /
-COPY --from=build /app/bin/rinha_de_compiler_dart /app/bin/
+COPY --from=build /app/bin/dartify_rinha /app/bin/
 
 # Run the compiled binary.
-ENTRYPOINT ["rinha_de_compiler_dart"]
+ENTRYPOINT ["dartify_rinha"]

@@ -1,6 +1,8 @@
 .dockerignore
 Dockerfile
 build/
+test/
+examples/
 .dart_tool/
 .git/
 .github/

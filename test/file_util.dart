@@ -13,7 +13,7 @@ enum Resources {
 
   const Resources(this.fileName);
 
-  String get path => 'test/resources/$fileName';
+  String get path => 'examples/json/$fileName';
 
   Map<String, dynamic> get asJson {
     final File file = File(path);
