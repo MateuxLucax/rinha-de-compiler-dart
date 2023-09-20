@@ -19,6 +19,5 @@ FROM build
 COPY --from=build /dartify_rinha /dartify_rinha
 
 WORKDIR /
-RUN /dartify_rinha install
 ​
 ENTRYPOINT ["/dartify_rinha"]
