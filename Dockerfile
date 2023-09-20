@@ -19,4 +19,4 @@ COPY --from=build /runtime/ /
 COPY --from=build /app/bin/dartify_rinha /app/bin/
 
 # Run the compiled binary.
-ENTRYPOINT ["dartify_rinha"]
+ENTRYPOINT ["./dartify_rinha"]
