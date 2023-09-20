@@ -2,6 +2,8 @@ import 'terms.dart';
 
 typedef Env = Map<String, dynamic>;
 
+typedef Tuple = (dynamic, dynamic);
+
 class Evaluator {
   dynamic call(final Term term, final Env environment) {
     return switch (term) {
@@ -81,19 +83,19 @@ class Evaluator {
     return result;
   }
 
-  dynamic evaluateFirstTerm(Term term, Env environment) {
-    final tuple = this(term, environment);
-    if (tuple is TupleTerm) {
-      return tuple.first;
+  dynamic evaluateFirstTerm(FirstTerm term, Env environment) {
+    final tuple = this(term.tuple, environment);
+    if (tuple is Tuple) {
+      return tuple.$1;
     } else {
       throw Exception('Evaluate Error - Trying to get first of a non-tuple');
     }
   }
 
-  dynamic evaluateSecondTerm(Term term, Env environment) {
-    final tuple = this(term, environment);
-    if (tuple is TupleTerm) {
-      return tuple.second;
+  dynamic evaluateSecondTerm(SecondTerm term, Env environment) {
+    final tuple = this(term.tuple, environment);
+    if (tuple is Tuple) {
+      return tuple.$2;
     } else {
       throw Exception('Evaluate Error - Trying to get second of a non-tuple');
     }

@@ -3,8 +3,18 @@ include: package:lints/recommended.yaml
 
 linter:
   rules:
-    - camel_case_types
-
-# analyzer:
-#   exclude:
-#     - path/to/excluded/files/**
+    camel_case_types: true
+    lines_longer_than_80_chars: false
+    prefer_single_quotes: true
+    prefer_const_declarations: true
+    prefer_const_literals_to_create_immutables: true
+    prefer_typing_uninitialized_variables: true
+    type_init_formals: true
+    unawaited_futures: true
+    unnecessary_const: true
+    unnecessary_new: true
+    unnecessary_this: true
+    always_declare_return_types: true
+    always_require_non_null_named_parameters: true
+    annotate_overrides: true
+    avoid_annotating_with_dynamic: true

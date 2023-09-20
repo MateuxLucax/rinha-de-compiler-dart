@@ -3,7 +3,6 @@ import 'package:test/test.dart';
 
 import 'file_util.dart';
 
-// TODO: find a way to test the result. Maybe check print via some kind of mock I dunno
 void main() {
   void baseTest(Map<String, dynamic> ast) {
     final Stopwatch stopwatch = Stopwatch()..start();

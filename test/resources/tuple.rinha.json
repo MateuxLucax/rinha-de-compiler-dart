@@ -57,52 +57,35 @@
       "value": {
         "kind": "Second",
         "value": {
-          "kind": "Tuple",
-          "first": {
-            "kind": "Int",
-            "value": 1,
-            "location": {
-              "start": 49,
-              "end": 50,
-              "filename": "tuple.rinha"
-            }
-          },
-          "second": {
-            "kind": "Int",
-            "value": 2,
-            "location": {
-              "start": 52,
-              "end": 53,
-              "filename": "tuple.rinha"
-            }
-          },
+          "kind": "Var",
+          "text": "tuple",
           "location": {
             "start": 48,
-            "end": 54,
+            "end": 53,
             "filename": "tuple.rinha"
           }
         },
         "location": {
           "start": 41,
-          "end": 55,
+          "end": 54,
           "filename": "tuple.rinha"
         }
       },
       "location": {
         "start": 35,
-        "end": 56,
+        "end": 55,
         "filename": "tuple.rinha"
       }
     },
     "location": {
       "start": 0,
-      "end": 56,
+      "end": 55,
       "filename": "tuple.rinha"
     }
   },
   "location": {
     "start": 0,
-    "end": 56,
+    "end": 55,
     "filename": "tuple.rinha"
   }
 }
