@@ -4,27 +4,43 @@ import 'package:test/test.dart';
 import 'file_util.dart';
 
 void main() {
-  test('Should exec sum.rinha', () {
-    final sumJson = Resources.sum.asJson;
-    final TreeInterpreter interpreter = TreeInterpreter();
-    interpreter(sumJson['expression']);
-  });
+  test('Should successfully interpret sum.rinha', () {
+    final Stopwatch stopwatch = Stopwatch()..start();
 
-  test('Should exec fib.rinha', () {
-    final sumJson = Resources.fib.asJson;
-    final TreeInterpreter interpreter = TreeInterpreter();
-    interpreter(sumJson['expression']);
+    final Map<String, dynamic> ast = Resources.sum.asJson;
+    final TreeInterpreter interpreter = TreeInterpreter(ast: ast);
+    interpreter();
+    stopwatch.stop();
+    print('Elapsed time: ${stopwatch.elapsed}');
   });
+  test('Should successfully interpret fib.rinha', () {
+    final Stopwatch stopwatch = Stopwatch()..start();
 
-  test('Should exec print.rinha', () {
-    final sumJson = Resources.print.asJson;
-    final TreeInterpreter interpreter = TreeInterpreter();
-    interpreter(sumJson['expression']);
+    final Map<String, dynamic> ast = Resources.fib.asJson;
+    final TreeInterpreter interpreter = TreeInterpreter(ast: ast);
+    interpreter();
+
+    stopwatch.stop();
+    print('Elapsed time: ${stopwatch.elapsed}');
   });
+  test('Should successfully interpret combination.rinha', () {
+    final Stopwatch stopwatch = Stopwatch()..start();
 
-  test('Should exec combination.rinha', () {
-    final sumJson = Resources.combination.asJson;
-    final TreeInterpreter interpreter = TreeInterpreter();
-    interpreter(sumJson['expression']);
+    final Map<String, dynamic> ast = Resources.combination.asJson;
+    final TreeInterpreter interpreter = TreeInterpreter(ast: ast);
+    interpreter();
+
+    stopwatch.stop();
+    print('Elapsed time: ${stopwatch.elapsed}');
+  });
+  test('Should successfully interpret print.rinha', () {
+    final Stopwatch stopwatch = Stopwatch()..start();
+
+    final Map<String, dynamic> ast = Resources.print.asJson;
+    final TreeInterpreter interpreter = TreeInterpreter(ast: ast);
+    interpreter();
+
+    stopwatch.stop();
+    print('Elapsed time: ${stopwatch.elapsed}');
   });
 }

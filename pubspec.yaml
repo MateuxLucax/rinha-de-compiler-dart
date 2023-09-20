@@ -1,13 +1,12 @@
 name: rinha_de_compiler_dart
-description: A sample command-line application.
+description: A basic interpreter built for the Rinha de Compiler event.
 version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+repository: https://github.com/MateuxLucax/rinha-de-compiler-dart
 
 environment:
   sdk: ^3.1.2
 
 dependencies:
-  args: ^2.4.2
 
 dev_dependencies:
   lints: ^2.0.0
