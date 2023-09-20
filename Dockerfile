@@ -19,4 +19,4 @@ FROM scratch
 COPY --from=build /app/bin/dartify_rinha /bin/dartify_rinha
 
 # Make available to the world outside this container.
-ENTRYPOINT ["dartify_rinha"]
+ENTRYPOINT dartify_rinha
