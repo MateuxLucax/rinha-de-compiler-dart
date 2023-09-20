@@ -16,6 +16,11 @@ RUN dart compile exe bin/dartify_rinha.dart -o bin/dartify_rinha
 # libraries and configuration files stored in `/runtime/` from the build stage.
 FROM scratch
 
-COPY --from=build /app/bin/dartify_rinha ./
+# Copy the AOT-compiled snapshot from the build stage.
+COPY --from=build /app/bin/dartify_rinha ./dartify_rinha
 
+# Check if the was imported correctly
+RUN ls -la
+
+# Run the compiled binary.
 ENTRYPOINT ["./dartify_rinha"]
