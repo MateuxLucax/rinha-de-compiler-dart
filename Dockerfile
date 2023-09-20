@@ -17,5 +17,5 @@ RUN dart compile exe bin/dartify_rinha.dart -o bin/dartify_rinha
 FROM scratch
 
 COPY --from=build /app/bin/dartify_rinha /app/bin/
-​
+
 ENTRYPOINT ["/app/bin/dartify_rinha"]
