@@ -16,6 +16,6 @@ RUN dart compile exe bin/dartify_rinha.dart -o bin/dartify_rinha
 # libraries and configuration files stored in `/runtime/` from the build stage.
 FROM scratch
 
-COPY --from=build /app/bin/dartify_rinha /app/bin/
+COPY --from=build /app/bin/dartify_rinha ./
 
-ENTRYPOINT ["/app/bin/dartify_rinha"]
+ENTRYPOINT ["./dartify_rinha"]
