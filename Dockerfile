@@ -16,7 +16,7 @@ RUN dart compile exe bin/dartify_rinha.dart -o bin/dartify_rinha
 FROM scratch
 
 # Copy the AOT-compiled snapshot from the build stage.
-COPY --from=build /app/bin/dartify_rinha /dartify_rinha
+COPY --from=build /app/bin/dartify_rinha /bin/dartify_rinha
 
 # Make available to the world outside this container.
-ENTRYPOINT ["/dartify_rinha"]
+ENTRYPOINT ["dartify_rinha"]
