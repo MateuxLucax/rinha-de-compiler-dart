@@ -63,4 +63,4 @@ E então executar:
 docker run dartify_rinha:latest <*.rinha.json>
 ```
 
-[banner]: ./img/banner.png
+[banner]: ./assets/banner.png
