@@ -12,13 +12,11 @@ COPY . .
 # Build an AOT-compiled snapshot of the app.
 RUN dart compile exe bin/dartify_rinha.dart -o bin/dartify_rinha
 
-RUN ls -la bin
-
 # Build minimal serving image from AOT-compiled `/dartify_rinha` and required system
 FROM scratch
 
 # Copy the AOT-compiled snapshot from the build stage.
-COPY --from=build /app/bin/dartify_rinha /
+COPY --from=build /app/bin/dartify_rinha /dartify_rinha
 
-# Run the compiled binary.
-CMD ["/dartify_rinha"]
+# Make available to the world outside this container.
+ENTRYPOINT ["/dartify_rinha"]
