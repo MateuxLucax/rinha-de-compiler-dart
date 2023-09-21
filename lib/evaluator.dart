@@ -28,8 +28,6 @@ class Evaluator {
     if (callee is Function) {
       final args = term.arguments.map((arg) => this(arg, environment)).toList();
       return callee(args);
-    } else {
-      throw Exception('Evaluate Error - Trying to call a non-function');
     }
   }
 
@@ -47,7 +45,7 @@ class Evaluator {
         'Gte' => this(term.left, environment) >= this(term.right, environment),
         'And' => this(term.left, environment) && this(term.right, environment),
         'Or' => this(term.left, environment) || this(term.right, environment),
-        _ => throw Exception('Evaluate Error - Unknown binary operator: ${term.op}'),
+        _ => false,
       };
 
   dynamic evaluateFunctionTerm(FunctionTerm term, Env environment) {
@@ -72,8 +70,6 @@ class Evaluator {
     final condition = this(term.condition, environment);
     if (condition is bool) {
       return condition ? this(term.thenBranch, environment) : this(term.elseBranch, environment);
-    } else {
-      throw Exception('Evaluate Error - [If] condition must be a boolean');
     }
   }
 
@@ -87,8 +83,6 @@ class Evaluator {
     final tuple = this(term.tuple, environment);
     if (tuple is Tuple) {
       return tuple.$1;
-    } else {
-      throw Exception('Evaluate Error - Trying to get first of a non-tuple');
     }
   }
 
@@ -96,8 +90,6 @@ class Evaluator {
     final tuple = this(term.tuple, environment);
     if (tuple is Tuple) {
       return tuple.$2;
-    } else {
-      throw Exception('Evaluate Error - Trying to get second of a non-tuple');
     }
   }
 
