@@ -42,13 +42,12 @@ E após basta executar:
 build/dartify_rinha <*.rinha.json>
 ```
 
+## Para a Rinha
 
-### Docker (em andamento)
-
-Caso queira testar utilizando Docker, você pode utilizar a image `mateuxlucax/dartify_rinha` utilizando o comando:
+Caso queira testar a rinha utilizando Dockerhub, você pode utilizar a image `mateuxlucax/dartify_rinha` utilizando o comando:
 
 ```bash
-docker run mateuxlucax/dartify_rinha:latest <*.rinha.json>
+docker run --name dartify_rinha -v <*.rinha.json>:/var/rinha/source.rinha.json --memory=2gb --cpus=0.25 mateuxlucax/dartify_rinha:latest
 ```
 
 Para fazer o build você mesmo, basta executar o comando:
@@ -60,7 +59,7 @@ docker build -t dartify_rinha .
 E então executar:
 
 ```bash
-docker run dartify_rinha:latest <*.rinha.json>
+docker run --name dartify_rinha -v <*.rinha.json>:/var/rinha/source.rinha.json --memory=2gb --cpus=0.25 dartify_rinha:latest
 ```
 
 [banner]: ./assets/banner.png
