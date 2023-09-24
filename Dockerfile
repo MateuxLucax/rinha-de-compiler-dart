@@ -20,4 +20,4 @@ COPY --from=build /app/bin/dartify_rinha /app/bin/
 
 LABEL maintainer="Mateus Lucas Cruz Brandt <mateuxlucax@gmail.com>"
 
-ENTRYPOINT ["/app/bin/dartify_rinha"]
+CMD ["/app/bin/dartify_rinha"]
