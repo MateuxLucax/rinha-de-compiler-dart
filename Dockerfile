@@ -20,5 +20,4 @@ COPY --from=build /app/bin/dartify_rinha /app/bin/
 
 LABEL maintainer="Mateus Lucas Cruz Brandt <mateuxlucax@gmail.com>"
 
-# Start dartify_rinha.
-CMD ["/app/bin/dartify_rinha"]
+ENTRYPOINT ["/app/bin/dartify_rinha"]
