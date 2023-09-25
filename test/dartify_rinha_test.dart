@@ -11,7 +11,7 @@ void main() {
     final Stopwatch stopwatch = Stopwatch()..start();
 
     final TreeInterpreter interpreter = TreeInterpreter(ast: resource.asJson);
-    expect(interpreter.call, prints(expected + '\n'));
+    expect(interpreter.call, prints('$expected\n'));
 
     stopwatch.stop();
     print('${resource.fileName} took ${stopwatch.elapsed} to interpret');
@@ -21,7 +21,7 @@ void main() {
     'Should successfully interpret sum.rinha',
     () => baseTest(
       resource: Resources.sum,
-      expected: '3',
+      expected: '15',
     ),
   );
 
