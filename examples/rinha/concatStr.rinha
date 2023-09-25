@@ -2,4 +2,4 @@ let concat = fn (a, b) => {
   a + b
 };
 
-print(sum("1 + 2 = ", 3))
+print(concat("1 + 2 = ", 3))

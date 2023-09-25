@@ -32,8 +32,15 @@ class Evaluator {
   }
 
   dynamic evaluateBinaryOpTerm(BinaryOpTerm term, Env environment) {
-    final right = this(term.right, environment);
+    var right = this(term.right, environment);
     final left = this(term.left, environment);
+
+    if (left is String && right is! String) {
+      right = right.toString();
+    } else if (left is int && right is! int) {
+      right = int.parse(right);
+    }
+
     return switch (term.op) {
       'Add' => left + right,
       'Sub' => left - right,

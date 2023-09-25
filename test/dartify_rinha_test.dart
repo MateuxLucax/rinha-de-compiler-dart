@@ -4,29 +4,80 @@ import 'package:test/test.dart';
 import 'file_util.dart';
 
 void main() {
-  void baseTest(Map<String, dynamic> ast) {
+  void baseTest({
+    required final Resources resource,
+    required final expected,
+  }) {
     final Stopwatch stopwatch = Stopwatch()..start();
 
-    final TreeInterpreter interpreter = TreeInterpreter(ast: ast);
-    interpreter();
+    final TreeInterpreter interpreter = TreeInterpreter(ast: resource.asJson);
+    expect(interpreter.call, prints(expected + '\n'));
 
     stopwatch.stop();
-    print('Elapsed time: ${stopwatch.elapsed}');
+    print('${resource.fileName} took ${stopwatch.elapsed} to interpret');
   }
 
-  test('Should successfully interpret sum.rinha', () => baseTest(Resources.sum.asJson));
+  test(
+    'Should successfully interpret sum.rinha',
+    () => baseTest(
+      resource: Resources.sum,
+      expected: '3',
+    ),
+  );
 
-  test('Should successfully interpret fib.rinha', () => baseTest(Resources.fib.asJson));
+  test(
+    'Should successfully interpret fib.rinha',
+    () => baseTest(
+      resource: Resources.fib,
+      expected: '55',
+    ),
+  );
 
-  test('Should successfully interpret print.rinha', () => baseTest(Resources.print.asJson));
+  test(
+    'Should successfully interpret print.rinha',
+    () => baseTest(
+      resource: Resources.print,
+      expected: 'Hello world',
+    ),
+  );
 
-  test('Should successfully interpret compostos.rinha', () => baseTest(Resources.compostos.asJson));
+  test(
+    'Should successfully interpret compostos.rinha',
+    () => baseTest(
+      resource: Resources.compostos,
+      expected: '1\n2',
+    ),
+  );
 
-  test('Should successfully interpret combination.rinha', () => baseTest(Resources.combination.asJson));
+  test(
+    'Should successfully interpret combination.rinha',
+    () => baseTest(
+      resource: Resources.combination,
+      expected: '45',
+    ),
+  );
 
-  test('Should successfully interpret tuple.rinha', () => baseTest(Resources.tuple.asJson));
+  test(
+    'Should successfully interpret tuple.rinha',
+    () => baseTest(
+      resource: Resources.tuple,
+      expected: '1\n2\n2',
+    ),
+  );
 
-  test('Should successfully interpret sumStr.rinha', () => baseTest(Resources.sumStr.asJson));
+  test(
+    'Should successfully interpret sumStr.rinha',
+    () => baseTest(
+      resource: Resources.sumStr,
+      expected: '3',
+    ),
+  );
 
-  test('Should successfully interpret concatStr.rinha', () => baseTest(Resources.concatStr.asJson));
+  test(
+    'Should successfully interpret concatStr.rinha',
+    () => baseTest(
+      resource: Resources.concatStr,
+      expected: '1 + 2 = 3',
+    ),
+  );
 }
