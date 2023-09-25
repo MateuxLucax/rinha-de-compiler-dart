@@ -25,4 +25,8 @@ void main() {
   test('Should successfully interpret combination.rinha', () => baseTest(Resources.combination.asJson));
 
   test('Should successfully interpret tuple.rinha', () => baseTest(Resources.tuple.asJson));
+
+  test('Should successfully interpret sumStr.rinha', () => baseTest(Resources.sumStr.asJson));
+
+  test('Should successfully interpret concatStr.rinha', () => baseTest(Resources.concatStr.asJson));
 }

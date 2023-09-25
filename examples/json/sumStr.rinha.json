@@ -1,0 +1,43 @@
+{
+  "name": "sumStr.rinha",
+  "expression": {
+    "kind": "Print",
+    "value": {
+      "kind": "Binary",
+      "lhs": {
+        "kind": "Int",
+        "value": 1,
+        "location": {
+          "start": 6,
+          "end": 7,
+          "filename": "sumStr.rinha"
+        }
+      },
+      "op": "Add",
+      "rhs": {
+        "kind": "Str",
+        "value": "2",
+        "location": {
+          "start": 10,
+          "end": 13,
+          "filename": "sumStr.rinha"
+        }
+      },
+      "location": {
+        "start": 6,
+        "end": 13,
+        "filename": "sumStr.rinha"
+      }
+    },
+    "location": {
+      "start": 0,
+      "end": 14,
+      "filename": "sumStr.rinha"
+    }
+  },
+  "location": {
+    "start": 0,
+    "end": 14,
+    "filename": "sumStr.rinha"
+  }
+}

@@ -31,22 +31,26 @@ class Evaluator {
     }
   }
 
-  dynamic evaluateBinaryOpTerm(BinaryOpTerm term, Env environment) => switch (term.op) {
-        'Add' => this(term.left, environment) + this(term.right, environment),
-        'Sub' => this(term.left, environment) - this(term.right, environment),
-        'Mul' => this(term.left, environment) * this(term.right, environment),
-        'Div' => this(term.left, environment) / this(term.right, environment),
-        'Rem' => this(term.left, environment) % this(term.right, environment),
-        'Eq' => this(term.left, environment) == this(term.right, environment),
-        'Neq' => this(term.left, environment) != this(term.right, environment),
-        'Lt' => this(term.left, environment) < this(term.right, environment),
-        'Lte' => this(term.left, environment) <= this(term.right, environment),
-        'Gt' => this(term.left, environment) > this(term.right, environment),
-        'Gte' => this(term.left, environment) >= this(term.right, environment),
-        'And' => this(term.left, environment) && this(term.right, environment),
-        'Or' => this(term.left, environment) || this(term.right, environment),
-        _ => false,
-      };
+  dynamic evaluateBinaryOpTerm(BinaryOpTerm term, Env environment) {
+    final right = this(term.right, environment);
+    final left = this(term.left, environment);
+    return switch (term.op) {
+      'Add' => left + right,
+      'Sub' => left - right,
+      'Mul' => left * right,
+      'Div' => left / right,
+      'Rem' => left % right,
+      'Eq' => left == right,
+      'Neq' => left != right,
+      'Lt' => left < right,
+      'Lte' => left <= right,
+      'Gt' => left > right,
+      'Gte' => left >= right,
+      'And' => left && right,
+      'Or' => left || right,
+      _ => false,
+    };
+  }
 
   dynamic evaluateFunctionTerm(FunctionTerm term, Env environment) {
     return (List<dynamic> args) {

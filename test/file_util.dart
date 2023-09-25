@@ -7,7 +7,9 @@ enum Resources {
   print('print.rinha.json'),
   combination('combination.rinha.json'),
   compostos('compostos.rinha.json'),
-  tuple('tuple.rinha.json');
+  tuple('tuple.rinha.json'),
+  sumStr('sumStr.rinha.json'),
+  concatStr('concatStr.rinha.json');
 
   final String fileName;
 
