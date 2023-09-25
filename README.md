@@ -59,7 +59,7 @@ docker build -t dartify_rinha .
 E então executar:
 
 ```bash
-docker run --name dartify_rinha -v <*.rinha.json>:/var/rinha/source.rinha.json --memory=2gb --cpus=0.25 dartify_rinha:latest
+docker run -it --rm --name dartify_rinha -v <*.rinha.json>:/var/rinha/source.rinha.json --memory=2gb --cpus=0.25 dartify_rinha:latest
 ```
 
 [banner]: ./assets/banner.png
