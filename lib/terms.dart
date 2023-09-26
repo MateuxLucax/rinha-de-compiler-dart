@@ -4,10 +4,6 @@ final class IntTerm extends Term {
   IntTerm(this.value);
 
   final int value;
-
-  num operator +(final other) {
-    return value + other.value;
-  }
 }
 
 final class StrTerm extends Term {
